@@ -4,5 +4,13 @@
         "apellido": "Torres",
         "email": "email@valido.com",
         "contraseña": "123456"
+    },
+
+    "usuarioQueRecibeDinero": {
+        "nombre": "Juan",
+        "apellido": "Recibe",
+        "email": "recibe@dinero.com",
+        "contraseña": "123456"
     }
+
 }
