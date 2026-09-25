@@ -68,3 +68,4 @@ jobs:
             # esperar que se levante el frontend
             - name: Esperar frontend
               run: wait-on tcp:3000
+              
