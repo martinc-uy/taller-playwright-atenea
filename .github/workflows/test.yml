@@ -68,3 +68,17 @@ jobs:
             # esperar que se levante el frontend
             - name: Esperar frontend
               run: wait-on tcp:3000
+
+            # empezar a ejecutar las pruebas
+            - name: Instalar y ejecutar pruebas
+              run: |
+                cd tests
+                npm install
+                npx playwright install
+                npx playwright test --reporter=html
+
+            - name: Guardar reportes como artefactos
+              if: always()
+              uses: actions/upload-artifact@v4
+              with: playwright-report
+              path: ./playwright-report
