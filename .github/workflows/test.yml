@@ -32,6 +32,7 @@ jobs:
             
             - name: Crear archivo .env para backend
               run: |
+                mkdir -p app/backend
                 echo "MONGO_URI=${{ env.MONGO_URI }}" > app/backend/.env
                 echo "JWT_SECRET=${{ env.JWT_SECRET }}" >> app/backend/.env
                 echo "PORT=${{ env.PORT }}" >> app/backend/.env
