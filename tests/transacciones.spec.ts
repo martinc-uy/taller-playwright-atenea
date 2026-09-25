@@ -68,7 +68,7 @@ testUsuarioRecibe('TC-14 Verificar transferencia recibida (enviada por API)', as
     const ultimosCuatroDigitos = cuentas[0].last4; // Tomamos el valor de los últimos cuatro dígitos de la cuenta
 
     const montoAleatorio = Math.floor(Math.random() * 100) + 1; // Monto aleatorio entre 1 y 100
-    console.log(`Enviando transferencia de $${montoAleatorio} desde la cuenta ${ultimosCuatroDigitos}, del email ${emailDeUsuarioEnvia} a ${testData.usuarioQueRecibeDinero.email}`)
+    console.log(`Enviando transferencia de $${montoAleatorio} desde la cuenta ${ultimosCuatroDigitos} del email ${emailDeUsuarioEnvia} a ${testData.usuarioQueRecibeDinero.email}`)
 
     // Ahora con todos los datos podemos enviar la transferencia de dinero de una cuenta a la otra
     const respuestaDeTransferencia = await request.post('http://localhost:6007/api/transactions/transfer', {
