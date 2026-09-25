@@ -31,25 +31,25 @@ jobs:
                 git clone https://github.com/martinc-uy/taller-playwright-atenea.git app
             
             - name: Crear archivo .env para backend
-              run:
+              run: |
                 echo "MONGO_URI=${{ env.MONGO_URI }}" > app/backend/.env
                 echo "JWT_SECRET=${{ env.JWT_SECRET }}" >> app/backend/.env
                 echo "PORT=${{ env.PORT }}" >> app/backend/.env
                 echo "VITE_API_URL=${{ env.VITE_API_URL }}" >> app/backend/.env
 
             - name: Instalar dependencias de backend
-              run: 
+              run: |
                 cd app/backend
                 npm install
 
             - name: Construir backend
-              run:
+              run: |
                 cd app/backend
                 npm run dev > backend.log 2>&1 &
 
             # se instala la herramienta wait-on globalmente
             - name: Instalar wait-on
-              run:
+              run: |
                 npm install -g wait-on
             
             # esperar que el backend se levante en el puerto 6007
@@ -59,7 +59,7 @@ jobs:
             # instalar dependencias del frontend
 
             - name: Instalar dependencias frontend
-              run:
+              run: |
                 cd app/frontend
                 npm install 
               env:
@@ -68,4 +68,3 @@ jobs:
             # esperar que se levante el frontend
             - name: Esperar frontend
               run: wait-on tcp:3000
-              
