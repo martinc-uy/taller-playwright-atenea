@@ -101,7 +101,7 @@ jobs:
                 git config --global user.email "github-actions[bot]@users.noreply.github.com"
                 # clonar github pages en carpeta temporal
                 cd $RUNNER_TEMP
-                git clone --depth=1 --branch=gh-pages https://x-access-token${{ secrets.GH_PAGES_PAT }}@github.com/${{ github.repository }} gh-pages
+                git clone --depth=1 --branch=gh-pages https://x-access-token:${{ secrets.GH_PAGES_PAT }}@github.com/${{ github.repository }} gh-pages
 
                 cd gh-pages
                 
