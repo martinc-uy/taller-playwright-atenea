@@ -9,11 +9,11 @@ let dashboardPage: DashboardPage;
 let modalEnviarTransferencia: ModalEnviarTransferencia;
 
 const testUsuarioEnvia = test.extend({
-   storageState: require.resolve('../playwright/.auth/usuarioEnvia.json')
+   storageState: 'playwright/.auth/usuarioEnvia.json'
 });
 
 const testUsuarioRecibe = test.extend({
-    storageState: require.resolve('../playwright/.auth/usuarioRecibe.json')
+    storageState: 'playwright/.auth/usuarioRecibe.json'
 });
 
 test.beforeEach(async ({ page }) => {
