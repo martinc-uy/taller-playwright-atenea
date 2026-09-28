@@ -83,14 +83,13 @@ jobs:
             # empezar a ejecutar las pruebas
             - name: Instalar y ejecutar pruebas
               run: |
-                cd tests
                 npm install
-                npx playwright install
+                npx playwright install --with-deps
                 npx playwright test --reporter=html
 
             - name: Guardar reportes como artefactos
               if: always()
-              uses: actions/upload-artifacts@v4
+              uses: actions/upload-artifact@v4
               with:
                 name: playwright-report
                 path: ./playwright-report
