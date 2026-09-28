@@ -46,7 +46,7 @@ jobs:
               run: |
                 cd app/backend
                 nc -zv localhost 27017
-                echo "$MONGO_URI" | sed 's/:[^:@]*@/:***@/'
+                export MONGO_URI="mongodb://localhost:27017/athena"
                 npm run dev > backend.log 2>&1 &
                 sleep 5
                 cat backend.log
