@@ -68,6 +68,14 @@ jobs:
               env:
                 VITE_API_URL: ${{ env.VITE_API_URL }}
 
+            # esto lo sugirió chatgpt
+            - name: Levantar frontend
+              run: |
+                  cd app/frontend
+                  npm run dev -- --host 0.0.0.0 > frontend.log 2>&1 &
+                  sleep 5
+                  cat frontend.log
+
             # esperar que se levante el frontend
             - name: Esperar frontend
               run: wait-on tcp:3000
