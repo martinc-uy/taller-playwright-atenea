@@ -46,6 +46,8 @@ jobs:
               run: |
                 cd app/backend
                 npm run dev > backend.log 2>&1 &
+                sleep 5
+                cat backend.log
 
             # se instala la herramienta wait-on globalmente
             - name: Instalar wait-on
