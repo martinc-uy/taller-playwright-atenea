@@ -45,6 +45,7 @@ jobs:
             - name: Construir backend
               run: |
                 cd app/backend
+                nc -zv localhost 27017
                 npm run dev > backend.log 2>&1 &
                 sleep 5
                 cat backend.log
