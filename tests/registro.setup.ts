@@ -25,6 +25,9 @@ setup.beforeEach(async ({ page }) => {
 setup('CONFIG-1 Generar usuario que envía dinero', async ({ page, request }) => {
     const nuevoUsuario = await BackendUtils.crearUsuarioPorAPI(request, testData.usuarioValido);
 
+    // me lo pasó chatgpt para arreglar mis github actions
+    await fs.mkdir(path.resolve(__dirname, '..', 'playwright/.auth'), { recursive: true });
+
     // Guardamos los datos del nuevo usuario para poder usarlos en los tests de transacciones
     await fs.writeFile(path.resolve(__dirname, '..', usuarioEnviaDataFile), JSON.stringify(nuevoUsuario, null, 2));
 
