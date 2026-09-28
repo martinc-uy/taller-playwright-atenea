@@ -46,6 +46,7 @@ jobs:
               run: |
                 cd app/backend
                 nc -zv localhost 27017
+                echo "$MONGO_URI" | sed 's/:[^:@]*@/:***@/'
                 npm run dev > backend.log 2>&1 &
                 sleep 5
                 cat backend.log
