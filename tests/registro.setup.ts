@@ -25,21 +25,38 @@ setup.beforeEach(async ({ page }) => {
 setup('CONFIG-1 Generar usuario que envía dinero', async ({ page, request }) => {
     const nuevoUsuario = await BackendUtils.crearUsuarioPorAPI(request, testData.usuarioValido);
 
+    // me lo pasó chatgpt para arreglar mis github actions
+    await fs.mkdir(path.resolve(__dirname, '..', 'playwright/.auth'), { recursive: true });
+
     // Guardamos los datos del nuevo usuario para poder usarlos en los tests de transacciones
     await fs.writeFile(path.resolve(__dirname, '..', usuarioEnviaDataFile), JSON.stringify(nuevoUsuario, null, 2));
 
     await loginPage.completarYHacerClickBotonLogin(nuevoUsuario);
     await dashBoardPage.botonDeAgregarCuenta.click();
-    await modalCrearCuenta.seleccionarTipoDeCuenta('Débito');
-    await modalCrearCuenta.completarMonto('1000');
-    await modalCrearCuenta.botonCrearCuenta.click();
+    await modalCrearCuenta.crearCuentaNueva('Débito', "2850");
     await expect(page.getByText('¡Cuenta creada exitosamente!')).toBeVisible();
     await page.context().storageState({ path: usuarioEnviaAuthFile });
 });
 
-setup('CONFIG-2 Loguear con usuario que recibe dinero', async ({ page }) => {
+setup('CONFIG-2 Crear, loguearse con usuario que recibe dinero y crear cuenta de débito', async ({ page, request }) => {
+    await BackendUtils.crearUsuarioPorAPI(
+        request,
+        testData.usuarioQueRecibeDinero,
+        false
+    );
+
     await loginPage.completarYHacerClickBotonLogin(testData.usuarioQueRecibeDinero);
     await expect(dashBoardPage.dashBoardTitle).toBeVisible();
+    await dashBoardPage.botonDeAgregarCuenta.click();
+    await modalCrearCuenta.crearCuentaNueva('Débito', "10");
+    await expect(page.getByText('¡Cuenta creada exitosamente!')).toBeVisible();
     await page.context().storageState({ path: usuarioRecibeAuthFile });
 });
 
+setup('CONFIG-3 Crear usuario válido inicial', async ({ request }) => {
+    await BackendUtils.crearUsuarioPorAPI(
+        request,
+        testData.usuarioValido,
+        false
+    );
+});
