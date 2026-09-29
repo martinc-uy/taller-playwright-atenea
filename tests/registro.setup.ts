@@ -33,12 +33,12 @@ setup('CONFIG-1 Generar usuario que envía dinero', async ({ page, request }) =>
 
     await loginPage.completarYHacerClickBotonLogin(nuevoUsuario);
     await dashBoardPage.botonDeAgregarCuenta.click();
-    await modalCrearCuenta.crearCuentaNueva('Débito', "10");
+    await modalCrearCuenta.crearCuentaNueva('Débito', "2850");
     await expect(page.getByText('¡Cuenta creada exitosamente!')).toBeVisible();
     await page.context().storageState({ path: usuarioEnviaAuthFile });
 });
 
-setup('CONFIG-2 Crear y loguearse con usuario que recibe dinero', async ({ page, request }) => {
+setup('CONFIG-2 Crear, loguearse con usuario que recibe dinero y crear cuenta de débito', async ({ page, request }) => {
     await BackendUtils.crearUsuarioPorAPI(
         request,
         testData.usuarioQueRecibeDinero,
@@ -53,7 +53,7 @@ setup('CONFIG-2 Crear y loguearse con usuario que recibe dinero', async ({ page,
     await page.context().storageState({ path: usuarioRecibeAuthFile });
 });
 
-setup('CONFIG-3 Crear usuarios valido inicial', async ({ request }) => {
+setup('CONFIG-3 Crear usuario válido inicial', async ({ request }) => {
     await BackendUtils.crearUsuarioPorAPI(
         request,
         testData.usuarioValido,
