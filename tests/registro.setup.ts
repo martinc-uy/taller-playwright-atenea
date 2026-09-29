@@ -33,30 +33,30 @@ setup('CONFIG-1 Generar usuario que envía dinero', async ({ page, request }) =>
 
     await loginPage.completarYHacerClickBotonLogin(nuevoUsuario);
     await dashBoardPage.botonDeAgregarCuenta.click();
-    await modalCrearCuenta.seleccionarTipoDeCuenta('Débito');
-    await modalCrearCuenta.completarMonto('1000');
-    await modalCrearCuenta.botonCrearCuenta.click();
+    await modalCrearCuenta.crearCuentaNueva('Débito', "10");
     await expect(page.getByText('¡Cuenta creada exitosamente!')).toBeVisible();
     await page.context().storageState({ path: usuarioEnviaAuthFile });
 });
 
 setup('CONFIG-2 Crear y loguearse con usuario que recibe dinero', async ({ page, request }) => {
-    const nuevoUsuario = await BackendUtils.crearUsuarioPorAPI(request, testData.usuarioQueRecibeDinero)
-    await loginPage.completarYHacerClickBotonLogin(nuevoUsuario);
-    await expect(dashBoardPage.dashBoardTitle).toBeVisible();
-    await page.context().storageState({ path: usuarioRecibeAuthFile });
-});
-
-setup('CONFIG-3 Crear usuarios existentes para los tests', async ({ request }) => {
-    await BackendUtils.crearUsuarioPorAPI(
-        request,
-        testData.usuarioValido,
-        false
-    );
-
     await BackendUtils.crearUsuarioPorAPI(
         request,
         testData.usuarioQueRecibeDinero,
+        false
+    );
+
+    await loginPage.completarYHacerClickBotonLogin(testData.usuarioQueRecibeDinero);
+    await expect(dashBoardPage.dashBoardTitle).toBeVisible();
+    await dashBoardPage.botonDeAgregarCuenta.click();
+    await modalCrearCuenta.crearCuentaNueva('Débito', "10");
+    await expect(page.getByText('¡Cuenta creada exitosamente!')).toBeVisible();
+    await page.context().storageState({ path: usuarioRecibeAuthFile });
+});
+
+setup('CONFIG-3 Crear usuarios valido inicial', async ({ request }) => {
+    await BackendUtils.crearUsuarioPorAPI(
+        request,
+        testData.usuarioValido,
         false
     );
 });

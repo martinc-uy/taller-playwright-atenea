@@ -23,4 +23,9 @@ export class ModalCrearCuenta {
     async completarMonto(monto: string){
         await this.montoInput.fill(monto);
     }
+    async crearCuentaNueva(tipo: string, monto: string) {
+    await this.seleccionarTipoDeCuenta(tipo);
+    await this.completarMonto(monto);
+    await this.botonCrearCuenta.click();
+}
 }
