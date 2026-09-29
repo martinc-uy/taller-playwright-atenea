@@ -120,4 +120,4 @@ jobs:
             - name: Imprimir link en la consola
               if: always()
               run: |
-                echo "Reporte disponible en: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/report-${{ GITHUB_RUN_NUMBER }}/"
+                echo "Reporte disponible en: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/report-${GITHUB_RUN_NUMBER}/"
