@@ -47,3 +47,16 @@ setup('CONFIG-2 Crear y loguearse con usuario que recibe dinero', async ({ page,
     await page.context().storageState({ path: usuarioRecibeAuthFile });
 });
 
+setup('CONFIG-3 Crear usuarios existentes para los tests', async ({ request }) => {
+    await BackendUtils.crearUsuarioPorAPI(
+        request,
+        testData.usuarioValido,
+        false
+    );
+
+    await BackendUtils.crearUsuarioPorAPI(
+        request,
+        testData.usuarioQueRecibeDinero,
+        false
+    );
+});

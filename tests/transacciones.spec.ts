@@ -25,8 +25,8 @@ test.beforeEach(async ({ page }) => {
 testUsuarioEnvia('TC-12 Verificar transacción exitosa', async ({ page }) => {
     await expect(dashboardPage.dashBoardTitle).toBeVisible();
     await dashboardPage.botonEnviarDinero.click();
-    await modalEnviarTransferencia.completarYEnviar(testData.usuarioValido.email, '100');
-    await expect(page.getByText('Transferencia enviada a ' + testData.usuarioValido.email)).toBeVisible();
+    await modalEnviarTransferencia.completarYEnviar(testData.usuarioQueRecibeDinero.email, '100');
+    await expect(page.getByText('Transferencia enviada a ' + testData.usuarioQueRecibeDinero.email)).toBeVisible();
 });
 
 testUsuarioRecibe('TC-13 Verificar que usuario reciba la transferencia', async ({ page }) => {
@@ -77,7 +77,7 @@ testUsuarioRecibe('TC-14 Verificar transferencia recibida (enviada por API)', as
         },
         data: {
             fromAccountId: idDeCuentaOrigen,
-            toEmail: testData.usuarioValido.email, // Destinatario fijo
+            toEmail: testData.usuarioQueRecibeDinero.email, // Destinatario fijo
             amount: montoAleatorio,
         }
     });
