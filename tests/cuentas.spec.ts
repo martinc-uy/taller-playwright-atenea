@@ -37,6 +37,7 @@ test('CUENTAS-01 - UI: Registrar usuario, login, creación dos cuentas, eliminac
     await modalCrearCuenta.crearCuentaNueva('Débito', '3000');
     await expect(page.getByText('¡Cuenta creada exitosamente!')).toBeVisible();
     await page.reload();
+    await page.waitForLoadState('networkidle');
     await expect(dashboardPage.dashBoardTitle).toBeVisible();
     //agrego una segunda cuenta
     await dashboardPage.botonDeAgregarCuenta.click();
