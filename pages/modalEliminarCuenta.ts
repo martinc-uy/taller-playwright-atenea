@@ -1,4 +1,4 @@
-import {Page, Locator} from '@playwright/test';
+import {Page, Locator, expect} from '@playwright/test';
 
 export class ModalEliminarCuenta {
     readonly page: Page;
@@ -15,6 +15,7 @@ export class ModalEliminarCuenta {
 
     async seleccionarCuentaABorrar(cuenta: string) {
         await this.seleccionarCuentaDropdown.click();
+        await expect(this.page.getByRole('option', { name: cuenta })).toBeVisible();
         await this.page.getByRole('option', { name: cuenta }).click();
     }
 }
