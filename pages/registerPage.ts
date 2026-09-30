@@ -2,6 +2,7 @@ import {Page, Locator} from '@playwright/test';
 
 export class RegisterPage{
     readonly page: Page;
+    readonly registerTitle: Locator;
     readonly firstNameInput: Locator;
     readonly lastNameInput: Locator;
     readonly emailInput: Locator;
@@ -11,6 +12,7 @@ export class RegisterPage{
 
     constructor(page: Page){
         this.page = page;
+        this.registerTitle = page.getByTestId('titulo-registro');
         this.firstNameInput = page.locator('input[name="firstName"]');
         this.lastNameInput = page.locator('input[name="lastName"]');
         this.emailInput = page.locator('input[name="email"]');

@@ -5,14 +5,15 @@ export class LoginPage{
     readonly emailInput: Locator;
     readonly passwordInput: Locator;
     readonly loginButton: Locator;
-    readonly dashBoardTitle: Locator;
+    readonly linkRegistro: Locator;
 
     constructor(page: Page){
         this.page = page;
         this.emailInput = page.locator('input[name="email"]');
         this.passwordInput = page.locator('input[name="password"]');
         this.loginButton = page.getByTestId('boton-login');
-        this.dashBoardTitle = page.getByTestId('titulo-dashboard');
+        this.linkRegistro = page.getByTestId('link-registrarse-login');
+        
     }
 
     async visitarPaginaLogin() {
