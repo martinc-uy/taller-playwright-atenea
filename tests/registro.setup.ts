@@ -8,7 +8,7 @@ import fs from 'fs/promises';
 import path from 'path';
 
 let loginPage: LoginPage;
-let dashBoardPage: DashboardPage;
+let dashboardPage: DashboardPage;
 let modalCrearCuenta: ModalCrearCuenta;
 
 const usuarioEnviaAuthFile = 'playwright/.auth/usuarioEnvia.json';
@@ -17,7 +17,7 @@ const usuarioEnviaDataFile = 'playwright/.auth/usuarioEnvia.data.json';
 
 setup.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
-    dashBoardPage = new DashboardPage(page);
+    dashboardPage = new DashboardPage(page);
     modalCrearCuenta = new ModalCrearCuenta(page);
     await loginPage.visitarPaginaLogin();
 });
@@ -32,7 +32,7 @@ setup('CONFIG-1 Generar usuario que envía dinero', async ({ page, request }) =>
     await fs.writeFile(path.resolve(__dirname, '..', usuarioEnviaDataFile), JSON.stringify(nuevoUsuario, null, 2));
 
     await loginPage.completarYHacerClickBotonLogin(nuevoUsuario);
-    await dashBoardPage.botonDeAgregarCuenta.click();
+    await dashboardPage.botonDeAgregarCuenta.click();
     await modalCrearCuenta.crearCuentaNueva('Débito', "2850");
     await expect(page.getByText('¡Cuenta creada exitosamente!')).toBeVisible();
     await page.context().storageState({ path: usuarioEnviaAuthFile });
@@ -46,8 +46,8 @@ setup('CONFIG-2 Crear, loguearse con usuario que recibe dinero y crear cuenta de
     );
 
     await loginPage.completarYHacerClickBotonLogin(testData.usuarioQueRecibeDinero);
-    await expect(dashBoardPage.dashBoardTitle).toBeVisible();
-    await dashBoardPage.botonDeAgregarCuenta.click();
+    await expect(dashboardPage.dashBoardTitle).toBeVisible();
+    await dashboardPage.botonDeAgregarCuenta.click();
     await modalCrearCuenta.crearCuentaNueva('Débito', "10");
     await expect(page.getByText('¡Cuenta creada exitosamente!')).toBeVisible();
     await page.context().storageState({ path: usuarioRecibeAuthFile });

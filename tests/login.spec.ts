@@ -19,6 +19,11 @@ test('TC-7 Verificar inicio de sesión exitoso con credenciales válidas', async
   await expect(dashboardPage.dashBoardTitle).toBeVisible();
 });
 
+test('TC-15 Verificar que no se puede iniciar sesión con crdenciales inválidas', async ({ page }) => {
+  await loginPage.completarYHacerClickBotonLogin({email: 'invalid@userInfo.com', contraseña:'123456'});
+  await expect(page.getByText('Invalid credentials')).toBeVisible();
+});
+
 test ('TC-11 Loguearse con un nuevo usuario creado por backend', async ({ page, request }) => {
   const nuevoUsuario = await BackendUtils.crearUsuarioPorAPI(request, testData.usuarioValido);
   const responsePromiseLogin = page.waitForResponse('http://localhost:6007/api/auth/login');

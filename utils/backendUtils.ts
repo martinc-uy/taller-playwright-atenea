@@ -26,4 +26,26 @@ export class BackendUtils {
     expect(response.status()).toBe(201);
     return { email: email, contraseña: usuario.contraseña };
   }
+
+  static async crearCuentaPorAPI(request: APIRequestContext, jwt: string, tipoDeCuenta: string, montoInicial: string) {
+    const response = await request.post('http://localhost:6007/api/accounts', {
+      headers: {
+        'Authorization': `Bearer ${jwt}`
+      },
+      data: {
+        type: tipoDeCuenta,
+        initialAmount: montoInicial,
+      }
+    });
+    expect(response.status()).toBe(201);
+  }
+
+  static async eliminarCuentaPorAPI(request: APIRequestContext, idCuenta: string, jwt: string){
+    const response = await request.delete(`http://localhost:6007/api/accounts/${idCuenta}`, {
+      headers: {
+        'Authorization': `Bearer ${jwt}`
+      },
+    });
+    expect(response.status()).toBe(200);
+  }
 }

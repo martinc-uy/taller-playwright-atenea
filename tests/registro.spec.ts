@@ -1,15 +1,19 @@
 import { test, expect, request } from '@playwright/test';
 import { RegisterPage } from '../pages/registerPage';
+import { LoginPage } from '../pages/loginPage';
 import testData from '../data/testData.json';
 
 let registerPage: RegisterPage;
+let loginPage: LoginPage;
 
 test.beforeEach(async ({ page }) => {
   registerPage = new RegisterPage(page);
+  loginPage = new LoginPage(page);
   await registerPage.visitarPaginaRegistro();
 });
 
 test('TC-1 Verificación de elementos visuales de la página de registro', async ({ page }) => {
+  await expect(registerPage.registerTitle).toBeVisible();
   await expect(registerPage.firstNameInput).toBeVisible();
   await expect(registerPage.lastNameInput).toBeVisible();
   await expect(registerPage.emailInput).toBeVisible();
@@ -26,9 +30,12 @@ test('TC-3 Verificar que el botón de registro se habilita al completar los camp
   await expect(registerPage.registerButton).toBeEnabled();
 });
 
-test('TC-4 Verificar redireccionamiento a página de login al hacer click en el botón de inicio de sesión', async ({ page }) => {
+test('TC-4 Verificar redireccionamiento a página de login al hacer click en el botón de inicio de sesión y volver', async ({ page }) => {
   await registerPage.hacerClickBotonLogin();
-  await expect(page).toHaveURL('http://localhost:3000/login')
+  await expect(page).toHaveURL('http://localhost:3000/login');
+  await loginPage.linkRegistro.click();
+  await expect(page).toHaveURL('http://localhost:3000/signup');
+  await expect(registerPage.registerTitle).toBeVisible();
 });
 
 test ('TC-5 Verificar registro exitoso con datos válidos', async ({ page }) => {

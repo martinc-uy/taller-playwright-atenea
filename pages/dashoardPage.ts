@@ -7,6 +7,7 @@ export class DashboardPage{
     readonly botonEnviarDinero: Locator;
     readonly elementosListaTransferencia: Locator;
     readonly elementosListaMontoTransferencia: Locator;
+    readonly botonEliminarCuenta: Locator;
 
     constructor(page: Page){
         this.page = page;
@@ -15,6 +16,7 @@ export class DashboardPage{
         this.botonEnviarDinero = page.getByTestId('boton-enviar');
         this.elementosListaTransferencia = page.locator('[data-testid="descripcion-transaccion"]');
         this.elementosListaMontoTransferencia = page.locator('[data-testid="monto-transaccion"]');
+        this.botonEliminarCuenta = page.getByTestId('boton-eliminar-cuenta');
     }
 
     // Visita pagina dashboard y login, es el mismo método
