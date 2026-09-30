@@ -29,6 +29,7 @@ test('CUENTAS-01 - UI: Registrar usuario, login, creación dos cuentas, eliminac
     await registerPage.completarYHacerClickBotonRegistro(testData.usuarioValido);
     await expect(page.getByText('Registro exitoso!')).toBeVisible();
     //inicio sesión
+    await expect(page).toHaveURL('http://localhost:3000/login');
     await loginPage.completarYHacerClickBotonLogin(testData.usuarioValido);
     await expect(dashboardPage.dashBoardTitle).toBeVisible();
     //agrego una cuenta nueva
