@@ -39,11 +39,7 @@ setup('CONFIG-1 Generar usuario que envía dinero', async ({ page, request }) =>
 });
 
 setup('CONFIG-2 Crear, loguearse con usuario que recibe dinero y crear cuenta de débito', async ({ page, request }) => {
-    await BackendUtils.crearUsuarioPorAPI(
-        request,
-        testData.usuarioQueRecibeDinero,
-        false
-    );
+    await BackendUtils.crearUsuarioPorAPI(request, testData.usuarioQueRecibeDinero,false);
 
     await loginPage.completarYHacerClickBotonLogin(testData.usuarioQueRecibeDinero);
     await expect(dashboardPage.dashBoardTitle).toBeVisible();
@@ -54,9 +50,5 @@ setup('CONFIG-2 Crear, loguearse con usuario que recibe dinero y crear cuenta de
 });
 
 setup('CONFIG-3 Crear usuario válido inicial', async ({ request }) => {
-    await BackendUtils.crearUsuarioPorAPI(
-        request,
-        testData.usuarioValido,
-        false
-    );
+    await BackendUtils.crearUsuarioPorAPI(request, testData.usuarioValido, false);
 });

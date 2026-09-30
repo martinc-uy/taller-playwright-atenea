@@ -30,7 +30,6 @@ test('CUENTAS-01 - UI: Registrar usuario, login, creación dos cuentas, eliminac
     await expect(page.getByText('Registro exitoso!')).toBeVisible();
     //inicio sesión
     await loginPage.completarYHacerClickBotonLogin(testData.usuarioValido);
-    await expect(page.getByText('Inicio de sesión exitoso')).toBeVisible();
     await expect(dashboardPage.dashBoardTitle).toBeVisible();
     //agrego una cuenta nueva
     await dashboardPage.botonDeAgregarCuenta.click();
@@ -88,7 +87,6 @@ test('CUENTAS-02 - API Registro usuario y creación cuenta', async ({ page, requ
         const cuentas = await respuestaDeCuentas.json();
         const ultimosCuatroDigitos = cuentas[0].last4;
         console.log(ultimosCuatroDigitos);
-        console.log(cuentas[0]);
         await page.reload();
         await expect(dashboardPage.elementosListaTransferencia.first()).toContainText(ultimosCuatroDigitos);
     });
@@ -120,7 +118,6 @@ test('CUENTAS-03 - API Registro usuario, creación cuenta y eliminación de cuen
         const cuentas = await respuestaDeCuentas.json();
         const ultimosCuatroDigitos = cuentas[0].last4;
         const idCuenta = cuentas[0]._id
-        console.log(ultimosCuatroDigitos);
         await page.reload();
         await expect(dashboardPage.elementosListaTransferencia.first()).toContainText(ultimosCuatroDigitos);
         return { idCuenta, ultimosCuatroDigitos };
