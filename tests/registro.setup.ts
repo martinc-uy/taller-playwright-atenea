@@ -39,13 +39,15 @@ setup('CONFIG-1 Generar usuario que envía dinero', async ({ page, request }) =>
 });
 
 setup('CONFIG-2 Crear, loguearse con usuario que recibe dinero y crear cuenta de débito', async ({ page, request }) => {
-    await BackendUtils.crearUsuarioPorAPI(request, testData.usuarioQueRecibeDinero,false);
+    const usuario = await BackendUtils.crearUsuarioPorAPI(request, testData.usuarioQueRecibeDinero, false);
 
-    await loginPage.completarYHacerClickBotonLogin(testData.usuarioQueRecibeDinero);
+    await loginPage.completarYHacerClickBotonLogin(usuario);
     await expect(dashboardPage.dashBoardTitle).toBeVisible();
-    await dashboardPage.botonDeAgregarCuenta.click();
-    await modalCrearCuenta.crearCuentaNueva('Débito', "10");
-    await expect(page.getByText('¡Cuenta creada exitosamente!')).toBeVisible();
+    if (usuario.usuarioCreado) {
+        await dashboardPage.botonDeAgregarCuenta.click();
+        await modalCrearCuenta.crearCuentaNueva('Débito', "10");
+        await expect(page.getByText('¡Cuenta creada exitosamente!')).toBeVisible();
+    }
     await page.context().storageState({ path: usuarioRecibeAuthFile });
 });
 
